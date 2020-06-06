@@ -1,7 +1,56 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Hello World Dmm</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
-</html>
+<head>
+	<meta charset="utf-8">
+	<style>
+		body{
+			background: #333666;
+			color: white;
+			font-family: Helvetica;
+		}
+	</style>
+	<title>
+		1712874_BTVN7
+	</title>
+	<script src="edgeDetection.js"></script>
+	<script>
+		function startFilter(){
+			var rect;
+			var width;
+			var height;
+			var context;
+			var inited = false;
+			function grayscale(data, context){
+				var pixels = data.data;
+				var width = data.width;
+				var length = pixels.length;
+				var abs = Math.abs;
+				var j = -1;
+				for(var i = -1; i < length - 1 - width*4){
+					var r = pixels[++i];
+					var g = pixels[++i];
+					var b = pixels[++i];
+					var value = 0.3*r + 0.59*g + 0.11*b;
+					pixels[++j] = value;
+					pixels[++j] = value;
+					pixels[++j] = value;
+					++i;
+					++j;
+				}
+				return data;
+			}
+			function updateFrame(){
+				try{
+					if(!inited){
+						if(!video.videoWidth) return;
+						inited = true;
+						width = canvas.width = video.videoWidth;
+						height = canvas.height = video.videoHeight;
+						context = canvas.getContext("2d");
+						rect = {x:0, y:0, width: width, height: height};
+					}
+					fps++;
+				}
+			}
+		}
+	</script>
