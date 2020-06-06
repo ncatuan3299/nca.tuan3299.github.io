@@ -50,7 +50,84 @@
 						rect = {x:0, y:0, width: width, height: height};
 					}
 					fps++;
+					try{context.drawImage(video,0,0,width,height); } catch(e) {}
+					if(!rect)
+						return;
+					var rx = rect.x;
+					var ry = rect.y;
+					var rw = rect.width;
+					var rh = rect.height
+					if(rw < 0){
+						rx += rh;
+						rh = -rh;
+					}
+					var data = context.getImageData(rx,ry,rw,rh);
+					data = edge(data,context);
+					context.putImageData(data,rx,ry);
+				}finally{
+					setTimeout(updateFrame,15);
 				}
 			}
+			setTimeout(updateFrame,10);
+			var canvas = document.getElementById("canvas");
+			var pressed = false;
+			canvas.onmousedown = function(event){
+				var tRect = event.target.getClientRects()[0];
+				rect = {x: event.clientX - tRect.left,
+						y: event.clientY - tRect.top,
+						width: 1, height: 1};
+				pressed = true;
+			}
+			canvas.onmouseup = function(event){
+				pressed = false;
+			}
+			canvas.onmousemove = function(event){
+				if(!rect || !pressed){ return; }
+				var tRect = event.target.getClientRects()[0];
+				rect.width = event.clientX - tRect.left - rect.x;
+				rect.height = event.clientY - tRect.top - rect.y;
+			}
+			var fps = 0;
+			setInterval(function(){
+				document.getElementById("fps").innerHTML = fps + "(" + [width,height] + ")"; fps = 0;
+			}, 1000);
+		}
+		var video;
+		window.onload = function(){
+			video = document.createElement("video");
+			video.controls = true;
+			video.autoplay = true;
+			var movSource = document.createElement("source");
+			movSource.src = "topi.mp4"
+			video.loop = true;
+			try{ video.load();} catch(e){}
+			document.getElementById("displayCell").appendChild(video);
+			startFilter();
 		}
 	</script>
+</head>
+<body>
+	<table>
+		<tbody>
+			<tr>
+				<td style="text-align: center">
+					<h1>Nguyen Chanh Anh Tuan - 1712874</h1>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<span id="displayCell">
+			<video controls autoplay loop>
+				<source src = "topi.mp4">
+			</video>
+		</span>
+		"&nbsp"
+		<canvas id="canvas" width="320" height="240">
+		<div>
+			"Framerate: "
+			<span id="fps">60(320,240)</span>
+		</div>
+	</div>
+</body>
+</html>
