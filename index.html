@@ -66,7 +66,7 @@
 							rh = -rh;
 						}
 						var data = context.getImageData(rx,ry,rw,rh);
-						data = edge(data,context);
+						data = edgeDetector(data,context);
 						context.putImageData(data,rx,ry);
 					}finally{
 						setTimeout(updateFrame,15);
@@ -136,7 +136,7 @@
 			<canvas id="canvas" width="320" height="240">
 			</canvas>
 			<div>
-				"Framerate: "
+				Framerate:
 				<span id="fps">50(320,240)</span>
 			</div>
 		</div>
