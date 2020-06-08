@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<style>
 		body{
-			background: #333333;
+			background: #333666;
 			color: white;
 			font-family: Helvetica;
 		}
@@ -73,9 +73,9 @@
             var value=0;
 
             for(var i =0;i<inputData.length;){
-                var index=i-3*j;
-                var x= FLOOR(index/w);
-                var y=index%w;
+                var index = i - 3 * j;
+                var x = FLOOR(index/w);
+                var y =index%w;
                 if(x==0 || y==0||x==w-1||y==h-1){
                 	sobelX[index]=0;
                 	sobelY[index]=0;
