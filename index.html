@@ -22,12 +22,12 @@
 	<br />
 	Canvas 1:
 	<br />
-	<canvas id='canvas2' width="640" height="360">		
+	<canvas id='canvas' width="640" height="360">		
 	</canvas>
 	<br />
 	Canvas 2:
 	<br />
-	<canvas id='canvas' width="640" height="360">		
+	<canvas id='canvas2' width="640" height="360">		
 	</canvas>
 	<script type="text/javascript">
 		var canvas = document.getElementById('canvas');
@@ -60,10 +60,10 @@
            	var h=image.height;
            	var kernelX=[-1,0,1,-2,0,2,-1,0,1];
             var kernelY=[-1,-2,-1,0,0,0,1,2,1];
-            var magnitudes = canvas.getContext('2d').createImageData(width,height);
+            var result = canvas.getContext('2d').createImageData(width,height);
 
             var inputData=image.data;
-            var outputData=magnitudes.data;
+            var outputData=result.data;
 
             var sobelX=[];
             var sobelY=[];
@@ -112,7 +112,7 @@
                 j++;
                 i++;
             }  
-            return magnitudes;
+            return result;
         }
 
 		document.addEventListener('DOMContentLoaded', function(){
@@ -133,21 +133,6 @@
 				})();
 			});
 		});
-		// var canvas2 = document.getElementById('canvas2');
-		// var context2= canvas2.getContext('2d');
-		// document.addEventListener('DOMContentLoaded', function(){
-		// 	var video2 = document.getElementById('video');
-		// 	var draw2 = function(){
-		// 		context2.drawImage(video2,0,0,video2.width,video2.height);
-		// 	}
-		// 	video2.addEventListener('play',function(){
-		// 		(function loop(){
-		// 			if(video2.paused || video2.ended){return; }
-		// 			draw2();
-		// 			setTimeout(loop,1000/60);
-		// 		})();
-		// 	});
-		// });
 	</script>
 </body>
 </html>
